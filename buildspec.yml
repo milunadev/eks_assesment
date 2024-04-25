@@ -4,5 +4,5 @@ phases:
   pre_build:
     commands:
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - echo "Hola!"
+      - echo "Hola :)!"
   
