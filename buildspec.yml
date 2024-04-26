@@ -6,11 +6,12 @@ env:
 phases:
   pre_build:
     commands:
+      - pip3 install -r requirements.txt
       - echo "Generando los protobufs..." 
       - chmod +x scripts/generate_proto.sh && ./scripts/generate_proto.sh
       - echo "Recuperando commit del hash"
       - COMMIT_HASH=$(git rev-parse HEAD)
-      - pip3 install -r requirements.txt
+      
   build:
     commands:
       - echo "Construyendo y etiquetando la imagen del cliente..."
