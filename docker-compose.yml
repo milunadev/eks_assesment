@@ -1,0 +1,26 @@
+version: '3.3'
+services:    
+    server:
+        build: 
+            context: ./
+            
+            dockerfile: ./server/Dockerfile
+        ports:
+            - "50050:50050"
+    client:
+        build: 
+            context: ./
+            dockerfile: ./client/Dockerfile
+        ports:
+          - '5000:5000'
+        depends_on: 
+            - server
+    client1:
+        build: 
+            context: ./
+            dockerfile: ./client/Dockerfile
+        ports:
+          - '5000:5001'
+        depends_on: 
+            - server
+        

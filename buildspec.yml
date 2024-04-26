@@ -1,0 +1,36 @@
+version: 0.2
+env:
+  variables:
+    CLIENT_ECR_URI: "904569689818.dkr.ecr.sa-east-1.amazonaws.com/eks_demo-client"
+    SERVER_ECR_URI: "904569689818.dkr.ecr.sa-east-1.amazonaws.com/eks_demo-server"
+phases:
+  pre_build:
+    commands:
+      - echo "Generando los protobufs..."
+      - ./scripts/generate_proto.sh
+      - echo "Recuperando commit del hash"
+      - COMMIT_HASH=$(git rev-parse HEAD)
+  build:
+    commands:
+      - echo "Construyendo y etiquetando la imagen del cliente..."
+      - docker build -t $CLIENT_ECR_URI:$COMMIT_HASH ./client
+      - echo "Construyendo y etiquetando la imagen del servidor..."
+      - docker build -t $SERVER_ECR_URI:$COMMIT_HASH ./server
+  
+  post_build:
+    commands:
+      - echo "Subiendo imágenes a Amazon ECR..."
+      - $(aws ecr get-login --no-include-email)
+      - echo "Subiendo imagen del cliente a ECR..."
+      - docker push $CLIENT_ECR_URI:$COMMIT_HASH
+      - echo "Subiendo imagen del servidor a ECR..."
+      - docker push $SERVER_ECR_URI:$COMMIT_HASH
+
+      - echo "Actualizando archivos de deployment de Kubernetes..."
+      - ./scripts/write_client_deployment.sh $CLIENT_ECR_URI:$COMMIT_HASH
+      - ./scripts/write_server_deployment.sh $SERVER_ECR_URI:$COMMIT_HASH
+
+      - echo "Aplicando los cambios al clúster de EKS..."
+      - kubectl get nodes
+      - kubectl apply -f ./eks_files/deployment_client.yml
+      

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+    <script type="text/javascript">
+        var socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
+
+        socket.on('new_message', function(data) {
+            var node = document.createElement("p");
+            var textnode = document.createTextNode(data.message);
+            node.appendChild(textnode);
+            document.getElementById("messages").appendChild(node);
+        });
+
+        function sendMessage() {
+            var messageInput = document.getElementById("myMessage");
+            var message = messageInput.value;
+            if (message.trim()) {  // Verifica que el mensaje no esté vacío
+                socket.emit('send_message', {message: message}, '/chat');
+                messageInput.value = '';  // Limpiar el campo después de enviar
+            }
+            return false;  // Prevenir la recarga de la página
+        }
+    </script>
+</head>
+<body>
+    <div id="messages"></div>
+    <form onsubmit="return sendMessage();">
+        <input type="text" id="myMessage" name="message">
+        <input type="submit" value="Send">
+    </form>
+    <a href="{{ url_for('index') }}">Logout</a>
+</body>
+</html>
