@@ -6,8 +6,8 @@ env:
 phases:
   pre_build:
     commands:
-      - echo "Generando los protobufs..."
-      - ./scripts/generate_proto.sh
+      - echo "Generando los protobufs..." 
+      - chmod +x scripts/generate_proto.sh && ./scripts/generate_proto.sh
       - echo "Recuperando commit del hash"
       - COMMIT_HASH=$(git rev-parse HEAD)
   build:
@@ -27,6 +27,7 @@ phases:
       - docker push $SERVER_ECR_URI:$COMMIT_HASH
 
       - echo "Actualizando archivos de deployment de Kubernetes..."
+      - chmod +x scripts/write_client_deployment.sh && chmod +x scripts/write_server_deployment.sh
       - ./scripts/write_client_deployment.sh $CLIENT_ECR_URI:$COMMIT_HASH
       - ./scripts/write_server_deployment.sh $SERVER_ECR_URI:$COMMIT_HASH
 
