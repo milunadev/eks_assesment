@@ -33,6 +33,7 @@ phases:
       - ./scripts/write_client_deployment.sh $CLIENT_ECR_URI:$COMMIT_HASH
       - ./scripts/write_server_deployment.sh $SERVER_ECR_URI:$COMMIT_HASH
 
+      - aws eks update-kubeconfig --region sa-east-1 --name eks_demo_eks_cluster
       - echo "Aplicando los cambios al clúster de EKS..."
       - kubectl get nodes
       - kubectl apply -f ./eks_files/deployment_client.yml
