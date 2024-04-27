@@ -41,4 +41,7 @@ phases:
       - kubectl apply -f ./eks_files/service_server.yaml
       - kubectl apply -f ./eks_files/service_client.yaml
       - kubectl apply -f ./eks_files/ingress.yaml
+      - kubectl apply -f ./eks_files/deployment_mongo.yaml
+
+
       

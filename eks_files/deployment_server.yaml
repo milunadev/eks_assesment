@@ -17,3 +17,9 @@ spec:
         image: 904569689818.dkr.ecr.sa-east-1.amazonaws.com/eks_demo-server:v1
         ports:
         - containerPort: 50051
+        env:
+        - name: MONGO_URL
+          value: "mongodb://mongo:27017/mydatabase"
+        - name: JWT_SECRET
+          value: "secret"
+        
