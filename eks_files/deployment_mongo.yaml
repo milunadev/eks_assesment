@@ -3,6 +3,7 @@ kind: StatefulSet
 metadata:
   name: mongodb
 spec:
+  serviceName: "mongodb"  # Esto debe coincidir con el nombre del Service que maneja este StatefulSet
   selector:
     matchLabels:
       app: mongodb
@@ -34,7 +35,6 @@ spec:
       resources:
         requests:
           storage: 1Gi
-
 ---
 apiVersion: v1
 kind: Service
