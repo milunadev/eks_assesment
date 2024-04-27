@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mongo-init-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: mongo-init
+        image: python:3.9-slim
+        command: ["sh", "-c"]
+        args:
+        - |
+          pip install pymongo
+          python -c "import pymongo; import time; time.sleep(10); client = pymongo.MongoClient('mongodb://mongodb:27017/'); db = client['mydatabase']; col = db['users']; col.insert_many([{'username': 'mimi', 'password': 'pass'}, {'username': 'juan', 'password': 'pass'}, {'username': 'pedro', 'password': 'pass'}])"
+        
+        env:
+          - name: MONGO_URI
+            value: "mongodb://mongodb:27017/"
+          - name: MONGO_INITDB_DATABASE
+            value: "mydatabase"
+      restartPolicy: OnFailure
