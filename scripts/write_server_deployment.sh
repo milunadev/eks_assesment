@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 SERVER_IMAGE=$1
 
 cat << EOF > eks_files/deployment_server.yaml
