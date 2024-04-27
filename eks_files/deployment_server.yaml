@@ -19,7 +19,7 @@ spec:
         - containerPort: 50051
         env:
         - name: MONGO_URL
-          value: "mongodb://mongo:27017/mydatabase"
+          value: "mongodb://mongodb:27017/mydatabase"
         - name: JWT_SECRET
           value: "secret"
         

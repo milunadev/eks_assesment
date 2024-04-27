@@ -1,9 +1,9 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: mongodb
 spec:
-  serviceName: "mongodb"  # Esto debe coincidir con el nombre del Service que maneja este StatefulSet
+  replicas: 1
   selector:
     matchLabels:
       app: mongodb
@@ -12,25 +12,19 @@ spec:
       labels:
         app: mongodb
     spec:
-      initContainers:
-      - name: init-mongo
-        image: python:3.9-slim  
-        command: ["python", "-c"]
-        args: [
-          "from pymongo import MongoClient; client = MongoClient('mongodb://localhost:27017/'); db = client['mydatabase']; col = db['users']; col.insert_one({'mimi':'pass', 'juan':'pass', 'pedro':'pass'});"
-        ]
       containers:
       - name: mongodb
         image: mongo:latest
         ports:
         - containerPort: 27017
         volumeMounts:
-        - name: mongo-persistent-storage
+        - name: mongo-storage
           mountPath: /data/db
-  volumes:
-  - name: mongo-storage
-    emptyDir: {}
-    
+      volumes:
+      - name: mongo-storage
+        emptyDir: {}
+
+
 ---
 apiVersion: v1
 kind: Service

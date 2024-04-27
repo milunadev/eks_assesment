@@ -18,13 +18,15 @@ class AuthService(rpc.AuthServiceServicer):
         self.users_collection = self.db[auth_collection]
         self.jwt_secret = jwt_secret
 
+
     def AuthenticateUser(self, request, context):
+        print("Authenticating user: ", request.username)
         username = request.username
         password = request.password 
 
         #Buscar user en mongo
         user = self.users_collection.find_one({'username': username, 'password': password})
-
+        print("User found: ", user)
         if user:
             print("User found: ", user, " generating token")
             token = jwt.encode({'username': username}, self.jwt_secret , algorithm='HS256')
