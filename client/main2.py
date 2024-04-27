@@ -58,25 +58,6 @@ class ChatClient:
             self.stub.SendNote(note,metadata=metadata)
             print(" 🚀ENVIADO: ", message)
     
-    def save_chat(self, messages, token):
-        import messaging_pb2 as chat
-        def generate_messages():
-            for msg in messages:
-                if ": " in msg:
-                    username, message = msg.split(": ", 1)
-                    print(f"Enviando mensaje: {username}, {message}")
-                    yield chat.ChatMessage(username=username, message=message, date='2021-01-01')
-
-        metadata = [('authorization', f'Bearer {token}')]
-        try:
-            responses = self.stub.SaveChat(generate_messages(), metadata=metadata)
-            for response in responses:
-                print(f'Mensaje guardado: {response}')
-        except grpc.RpcError as e:
-            print(f"Error al guardar chat: {str(e)}")
-            return False
-
-        return True
 
 clients = {} 
 chat_histories = {}
@@ -94,23 +75,15 @@ def index():
         if token:
             session['username'] = username
             session['token'] = token
-            return redirect(url_for('options'))
+            return redirect(url_for('livechat'))
         else:
             return render_template('index.html', error="Error de autenticación")
     return render_template('index.html')
 
-@app.route('/options', methods=['GET', 'POST'])
-def options():
-    print(session)
-    username = session.get('username')
-    if username:
-        token = session.get('token')
-        return render_template('options.html', username=username)
-    else: 
-        return redirect(url_for('index'))
+
 
 @app.route('/livechat', methods=['GET', 'POST'])
-def chat():
+def livechat():
     username = session.get('username')
     token = session.get('token')
     if not username or not token:

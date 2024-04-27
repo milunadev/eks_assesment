@@ -72,24 +72,6 @@ class ChatServer(rpc.ChatServerServicer):
         self.chats.append(request)   #Append to message history
         return chat.EmptyMessage()   #Return empty message
 
-    def SaveChat(self, request_iterator, context):
-        print('Iniciando guardado de chat...', self)
-        try:
-            for note in request_iterator:
-                print(note)
-                if context.is_active():
-                    print(note)
-                    print(f'{note.username}: {note.message}')
-                    # Aquí agregar lógica para guardar efectivamente los mensajes
-                else:
-                    print('El contexto no está activo.')
-                    break
-            print('Todos los mensajes fueron guardados exitosamente.')
-            return chat.SaveChatResponse(success=True)
-        except Exception as e:
-            print(f'Error durante el guardado de chat: {e}')
-            return chat.SaveChatResponse(success=False)
-
 def serve():
     jwt_secret = secret_key
     mongo_url = 'mongodb://localhost:27017'
@@ -108,7 +90,8 @@ def serve():
         print('⌨️ Interrupción por teclado detectada, cerrando el servidor...')
         server.stop(0)  # Detiene el servidor de inmediato
         print('✅ Servidor cerrado correctamente.')
-
+        
 
 if __name__ == '__main__':
     serve()
+

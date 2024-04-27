@@ -17,22 +17,11 @@ message LoginResponse {
     string error = 2;
 }
 
-message ChatMessagge{
-    string username = 1;
-    string message = 2;
-    string date = 3;
-}
-
-message SaveChatResponse {
-    bool success = 1;
-}
-
 service AuthService{
     rpc AuthenticateUser (LoginRequest) returns (LoginResponse);
 }
 
 service ChatServer{
-    rpc SaveChat (stream ChatMessagge) returns (SaveChatResponse);
     rpc ChatStream(EmptyMessage) returns (stream Note);
     rpc SendNote(Note) returns (EmptyMessage);
 }

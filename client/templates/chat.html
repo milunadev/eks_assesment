@@ -82,16 +82,6 @@
             return false;  // Prevenir la recarga de la página
         }
 
-        function saveChat() {
-            var messages = [];
-            var messageElements = document.querySelectorAll('#messages p');  // Suponiendo que cada mensaje está en un elemento <p>
-            messageElements.forEach(function(msg) {
-                messages.push(msg.innerText);
-            });
-
-            socket.emit('save_chat', {'messages': messages}, '/chat');
-        }
-
     </script>
 </head>
 <body>
@@ -100,7 +90,7 @@
         <input type="text" id="myMessage" name="message" placeholder="Escribe tu mensaje aquí...">
         <input type="submit" value="Send">
     </form>
-    <button onclick="saveChat()">Guardar Chat</button>
+    
     <a href="{{ url_for('logout') }}">Logout</a>
 </body>
 </html>
