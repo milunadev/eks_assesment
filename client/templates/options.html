@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Options</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(226, 189, 248, 0.881);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .options-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .button {
+            background-color: #b25cb8;
+            color: white;
+            padding: 15px 30px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-transform: uppercase;
+            display: block; /* Make the buttons block level so they stretch to the container width */
+            width: 100%; /* Makes width of button fill container */
+        }
+
+        .button:hover {
+            background-color: #784cae;
+        }
+    </style>
+</head>
+<body>
+    <div class="options-container">
+        <h2>Welcome, {{ username }}</h2>
+        <button class="button" onclick="location.href='/livechat'">Chat en Vivo</button>
+        <button class="button" onclick="location.href='/searchchats'">Buscar Chats</button>
+    </div>
+</body>
+</html>

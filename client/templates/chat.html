@@ -3,8 +3,67 @@
 <head>
     <title>Chat</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgba(226, 189, 248, 0.881);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        #messages {
+            width: 80%;
+            height: 70%;
+            border: 1px solid #ddd;
+            padding: 10px;
+            overflow-y: scroll;
+            background: #fff;
+            margin-bottom: 20px;
+        }
+        p {
+            background: #eee;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        form {
+            width: 80%;
+            display: flex;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-right: 5px;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #b25cb8;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background: #f454ff;
+        }
+        a {
+            margin-top: 10px;
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
     <script type="text/javascript">
-        var socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
+         var socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
 
         socket.on('new_message', function(data) {
             var node = document.createElement("p");
@@ -22,14 +81,26 @@
             }
             return false;  // Prevenir la recarga de la página
         }
+
+        function saveChat() {
+            var messages = [];
+            var messageElements = document.querySelectorAll('#messages p');  // Suponiendo que cada mensaje está en un elemento <p>
+            messageElements.forEach(function(msg) {
+                messages.push(msg.innerText);
+            });
+
+            socket.emit('save_chat', {'messages': messages}, '/chat');
+        }
+
     </script>
 </head>
 <body>
     <div id="messages"></div>
     <form onsubmit="return sendMessage();">
-        <input type="text" id="myMessage" name="message">
+        <input type="text" id="myMessage" name="message" placeholder="Escribe tu mensaje aquí...">
         <input type="submit" value="Send">
     </form>
-    <a href="{{ url_for('index') }}">Logout</a>
+    <button onclick="saveChat()">Guardar Chat</button>
+    <a href="{{ url_for('logout') }}">Logout</a>
 </body>
 </html>
