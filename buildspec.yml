@@ -36,5 +36,9 @@ phases:
       - aws eks update-kubeconfig --region sa-east-1 --name eks_demo_eks_cluster
       - echo "Aplicando los cambios al clúster de EKS..."
       - kubectl get nodes
-      - kubectl apply -f ./eks_files/deployment_client.yml
+      - kubectl apply -f ./eks_files/deployment_client.yaml
+      - kubectl apply -f ./eks_files/deployment_server.yaml
+      - kubectl apply -f ./eks_files/service_server.yaml
+      - kubectl apply -f ./eks_files/service_client.yaml
+      - kubectl apply -f ./eks_files/ingress.yaml
       
