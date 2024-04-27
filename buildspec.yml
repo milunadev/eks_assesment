@@ -1,8 +1,8 @@
 version: 0.2
 env:
   variables:
-    CLIENT_ECR_URI: "904569689818.dkr.ecr.sa-east-1.amazonaws.com/eks_demo-client"
-    SERVER_ECR_URI: "904569689818.dkr.ecr.sa-east-1.amazonaws.com/eks_demo-server"
+    CLIENT_ECR_URI: "904569689818.dkr.ecr.sa-east-1.amazonaws.com/milunaeksdemo-client"
+    SERVER_ECR_URI: "904569689818.dkr.ecr.sa-east-1.amazonaws.com/milunaeksdemo-server"
 phases:
   pre_build:
     commands:
