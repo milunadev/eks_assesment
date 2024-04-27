@@ -1,7 +1,7 @@
 #!/bin/bash
 CLIENT_IMAGE=$1
 
-cat << EOF > client/deployment_client.yaml
+cat << EOF > eks_files/deployment_client.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,5 +26,5 @@ spec:
           value: "server-service:50051"
 EOF
 
-cat client/deployment_client.yaml
+cat eks_files/deployment_client.yaml
 echo "Deployment created"

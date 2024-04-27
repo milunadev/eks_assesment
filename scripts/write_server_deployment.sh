@@ -1,7 +1,7 @@
 #!/bin/bash
 SERVER_IMAGE=$1
 
-cat << EOF > client/deployment_client.yaml
+cat << EOF > eks_files/deployment_server.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
