@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fmessaging.proto\"\x0e\n\x0c\x45mptyMessage\"%\n\x04Note\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t2T\n\nChatServer\x12$\n\nChatStream\x12\r.EmptyMessage\x1a\x05.Note0\x01\x12 \n\x08SendNote\x12\x05.Note\x1a\r.EmptyMessageb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fmessaging.proto\"\x0e\n\x0c\x45mptyMessage\"%\n\x04Note\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\"2\n\x0cLoginRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"-\n\rLoginResponse\x12\r\n\x05token\x18\x01 \x01(\t\x12\r\n\x05\x65rror\x18\x02 \x01(\t\"?\n\x0c\x43hatMessagge\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\t\"#\n\x10SaveChatResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32@\n\x0b\x41uthService\x12\x31\n\x10\x41uthenticateUser\x12\r.LoginRequest\x1a\x0e.LoginResponse2\x84\x01\n\nChatServer\x12.\n\x08SaveChat\x12\r.ChatMessagge\x1a\x11.SaveChatResponse(\x01\x12$\n\nChatStream\x12\r.EmptyMessage\x1a\x05.Note0\x01\x12 \n\x08SendNote\x12\x05.Note\x1a\r.EmptyMessageb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -25,6 +25,16 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_EMPTYMESSAGE']._serialized_end=33
   _globals['_NOTE']._serialized_start=35
   _globals['_NOTE']._serialized_end=72
-  _globals['_CHATSERVER']._serialized_start=74
-  _globals['_CHATSERVER']._serialized_end=158
+  _globals['_LOGINREQUEST']._serialized_start=74
+  _globals['_LOGINREQUEST']._serialized_end=124
+  _globals['_LOGINRESPONSE']._serialized_start=126
+  _globals['_LOGINRESPONSE']._serialized_end=171
+  _globals['_CHATMESSAGGE']._serialized_start=173
+  _globals['_CHATMESSAGGE']._serialized_end=236
+  _globals['_SAVECHATRESPONSE']._serialized_start=238
+  _globals['_SAVECHATRESPONSE']._serialized_end=273
+  _globals['_AUTHSERVICE']._serialized_start=275
+  _globals['_AUTHSERVICE']._serialized_end=339
+  _globals['_CHATSERVER']._serialized_start=342
+  _globals['_CHATSERVER']._serialized_end=474
 # @@protoc_insertion_point(module_scope)
