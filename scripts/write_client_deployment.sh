@@ -25,3 +25,6 @@ spec:
         - name: SERVER_URL
           value: "server-service:50051"
 EOF
+
+cat client/deployment_client.yaml
+echo "Deployment created"
